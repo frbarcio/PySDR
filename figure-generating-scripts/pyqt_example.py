@@ -86,7 +86,8 @@ class SDRWorker(QObject):
     def update_sample_rate(self, val):
         print("Updated sample rate to:", sample_rates[val], 'MHz')
         if sdr_type == "pluto":
-            sdr.sample_rate = int(sample_rates[val] * 1e6)
+            self.sample_rate = int(sample_rates[val] * 1e6)
+            sdr.sample_rate = self.sample_rate 
             sdr.rx_rf_bandwidth = int(sample_rates[val] * 1e6 * 0.8)
         elif sdr_type == "usrp":
             usrp.set_rx_rate(sample_rates[val] * 1e6, 0)
